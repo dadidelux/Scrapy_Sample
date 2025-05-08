@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import os
 
 headers = {
     "Content-Type": "application/json",
@@ -8,14 +9,16 @@ headers = {
 }
 
 base_url = "https://product-service.alo.software/graphql"
+hash_version = {
+    "version": 1,
+    "sha256Hash": "1647816df62eafdb2ef8305209f54c5c24a715ee12af8e0a86721913abb10dd1"
+}
+
 query_params = {
     "opName": "GetCollectionData",
     "operationName": "GetCollectionData",
     "extensions": json.dumps({
-        "persistedQuery": {
-            "version": 1,
-            "sha256Hash": "1647816df62eafdb2ef8305209f54c5c24a715ee12af8e0a86721913abb10dd1"
-        }
+        "persistedQuery": hash_version
     }),
 }
 
@@ -30,37 +33,50 @@ def fetch_page(offset=0, limit=15):
     }
 
     query_params["variables"] = json.dumps(variables)
-    response = requests.get(base_url, headers=headers, params=query_params)
-    return response.json()
+    return requests.get(base_url, headers=headers, params=query_params)
+
+# Ensure error log folder exists
+os.makedirs("graphql_error_logs", exist_ok=True)
 
 # Accumulate all products
 all_products = []
 offset = 0
 limit = 15
-max_products = 1455  # total products listed on site
 
-while offset < max_products:
+while True:
     print(f"🔄 Fetching offset {offset}...")
-    data = fetch_page(offset=offset, limit=limit)
+    response = fetch_page(offset=offset, limit=limit)
 
     try:
+        if response.status_code != 200:
+            raise Exception(f"HTTP {response.status_code}")
+
+        data = response.json()
+
+        if "errors" in data:
+            raise Exception(data["errors"])
+
         nodes = data["data"]["productsByCollectionHandle"]["products"]["nodes"]
         if not nodes:
-            print("No more products returned. Ending early.")
+            print("✅ Reached end of product list.")
             break
 
         all_products.extend(nodes)
         offset += limit
-        time.sleep(1)  # be kind to the server
+        time.sleep(1)
 
     except Exception as e:
         print(f"❌ Error at offset {offset}: {e}")
-        with open("debug_last_error.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        error_file = f"graphql_error_logs/error_log_offset_{offset}.json"
+        with open(error_file, "w", encoding="utf-8") as f:
+            try:
+                f.write(response.text)
+            except:
+                f.write(json.dumps({"error": str(e)}))
         break
 
-# Save to JSON
+# Save result
 with open("alo_yoga_products.json", "w", encoding="utf-8") as f:
     json.dump(all_products, f, ensure_ascii=False, indent=2)
 
-print(f"✅ Done! Saved {len(all_products)} products to alo_yoga_products.json")
+print(f"✅ Done. Saved {len(all_products)} products.")
