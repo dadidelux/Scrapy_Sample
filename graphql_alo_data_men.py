@@ -33,7 +33,7 @@ def fetch_page(offset=0, limit=15):
         "limit": limit,
         "sortKey": "DEFAULT",
         "filters": [],
-        "countryCode": "PH"
+        "countryCode": "US"
     }
 
     query_params["variables"] = json.dumps(variables)

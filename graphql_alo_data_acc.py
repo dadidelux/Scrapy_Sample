@@ -26,7 +26,7 @@ def fetch_products(offset):
         "limit": 15,
         "sortKey": "DEFAULT",
         "filters": [],
-        "countryCode": "PH"
+        "countryCode": "US"
     }
 
     payload = {
