@@ -70,7 +70,7 @@ while True:
     time.sleep(0.5)  # Respectful delay
 
 # Save to CSV
-with open("alo_accessories.csv", "w", newline='', encoding="utf-8") as f:
+with open("alo/json/alo_accessories.csv", "w", newline='', encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=["title", "price", "image", "handle"])
     writer.writeheader()
     writer.writerows(all_products)

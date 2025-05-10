@@ -28,7 +28,7 @@ query_params = {
 
 def fetch_page(offset=0, limit=15):
     variables = {
-        "handle": "mens-shop-all",  # ← changed from mens-shop-all
+        "handle": "accessories-shop-all",  # ← changed from mens-shop-all
         "offset": offset,
         "limit": limit,
         "sortKey": "DEFAULT",
@@ -85,7 +85,7 @@ while True:
 os.makedirs("alo/json", exist_ok=True)
 
 # Save to JSON
-with open("alo/json/alo_yoga_men_products.json", "w", encoding="utf-8") as f:
+with open("alo/json/alo_yoga_accessories_products.json", "w", encoding="utf-8") as f:
     json.dump(all_products, f, ensure_ascii=False, indent=2)
 
-print(f"✅ Done. Saved {len(all_products)} accessories to alo_yoga_men_products.json")
+print(f"✅ Done. Saved {len(all_products)} accessories to alo_yoga_accessories_products.json")

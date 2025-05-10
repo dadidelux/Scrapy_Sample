@@ -2,9 +2,10 @@ import json
 import pandas as pd
 from datetime import datetime
 import pytz
+import os
 
 # Load JSON file
-with open("alo_yoga_products.json", "r", encoding="utf-8") as f:
+with open("alo/json/alo_yoga_shoes_products.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Flatten and collect data
@@ -47,7 +48,10 @@ for product in data:
 # Create DataFrame
 df = pd.DataFrame(records)
 
-# Save to CSV
-df.to_csv("alo_yoga_products_processed.csv", index=False)
+# Ensure save folder exists
+os.makedirs("alo/csv", exist_ok=True)
 
-print("✅ Data processed and saved to 'alo_yoga_products_processed.csv'")
+# Save to CSV
+df.to_csv("alo/csv/alo_yoga_products_shoes_processed.csv", index=False)
+
+print("✅ Data processed and saved to 'alo_yoga_products_shoes_processed.csv'")
