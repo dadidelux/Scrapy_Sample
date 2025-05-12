@@ -41,7 +41,7 @@ while True:
     time.sleep(0.5)  # Be kind to their server
 
 # Save to file
-with open("shopbop_products.json", "w", encoding="utf-8") as f:
+with open("shopbop_women_products.json", "w", encoding="utf-8") as f:
     json.dump(all_products, f, ensure_ascii=False, indent=2)
 
 print(f"Total items downloaded: {len(all_products)}")
