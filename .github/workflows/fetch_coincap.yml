@@ -1,6 +1,7 @@
 name: Fetch CoinCap Data Daily (Python)
 
 on:
+  workflow_dispatch:     # 👈 allows manual trigger
   schedule:
     - cron: '0 0 * * *'  # Every day at midnight UTC
 
