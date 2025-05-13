@@ -4,6 +4,11 @@ import os
 from datetime import datetime
 
 TOKEN = os.getenv("COINCAP_TOKEN")
+
+if not TOKEN or TOKEN == "***":
+    raise ValueError("❌ COINCAP_TOKEN is missing or invalid. Check GitHub Secrets.")
+
+
 URL = "https://rest.coincap.io/v3/assets"
 
 headers = {
