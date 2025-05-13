@@ -31,11 +31,12 @@ jobs:
           COINCAP_TOKEN: ${{ secrets.COINCAP_TOKEN }}
         run: python scripts/fetch_coincap.py
 
-      - name: Commit and push JSON
+      - name: Commit and force push JSON
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git pull --rebase origin main
           git add data/
           git commit -m "📈 Daily CoinCap data for $(date +%F)" || echo "No changes to commit"
-          git push origin main
+          git push origin HEAD:data-dump --force
+
+
