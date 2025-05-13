@@ -1,0 +1,16 @@
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_Men's Content` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_M1224R Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_EcomVideo-Ikce` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_MensUnisexPixlee Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_MensW3550RG Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_SU25MD1-family` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_EcomVideo-Shomari` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_M6123R Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_FA24MD1-family` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_HO22MMidnightGreen-family` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_M1205R Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_SU22MRust-family` Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_MensU3041RG Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_MensU5013RG Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN tag_YGroup_M6154R Nullable(String);
+ALTER TABLE `default`.bd_alo_yoga_all_products_n ADD COLUMN `tag_EcomVideo-Dale` Nullable(String);

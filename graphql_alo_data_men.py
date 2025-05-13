@@ -85,7 +85,7 @@ while True:
 os.makedirs("alo/json", exist_ok=True)
 
 # Save to JSON
-with open("alo/json/alo_yoga_men_products.json", "w", encoding="utf-8") as f:
+with open("alo/json/alo_yoga_mens_products.json", "w", encoding="utf-8") as f:
     json.dump(all_products, f, ensure_ascii=False, indent=2)
 
 print(f"✅ Done. Saved {len(all_products)} accessories to alo_yoga_men_products.json")
