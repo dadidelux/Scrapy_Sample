@@ -17,6 +17,18 @@ print(f"  User     : {user}")
 print(f"  Database : {database}")
 print(f"  Password : {'(hidden)' if password else '(missing)'}")
 
+required_vars = {
+    "CH_HOST": host,
+    "CH_PORT": port,
+    "CH_USER": user,
+    "CH_PASSWORD": password,
+    "CH_DATABASE": database
+}
+
+missing = [key for key, val in required_vars.items() if not val]
+if missing:
+    raise EnvironmentError(f"❌ Missing required environment variables: {', '.join(missing)}")
+
 
 # Load today's JSON file
 today = datetime.datetime.utcnow().strftime("%Y-%m-%d")
