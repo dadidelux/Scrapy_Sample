@@ -1,9 +1,9 @@
 name: Fetch CoinCap Data Daily (Python)
 
 on:
-  workflow_dispatch:     # 👈 allows manual trigger
+  workflow_dispatch:     # Manual run
   schedule:
-    - cron: '0 0 * * *'  # Every day at midnight UTC
+    - cron: '0 0 * * *'  # Daily at midnight UTC
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 👈 Required for rebase to work properly
+          fetch-depth: 0  # Required for git reset
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -24,19 +24,31 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests clickhouse-driver
 
       - name: Run CoinCap fetcher
         env:
           COINCAP_TOKEN: ${{ secrets.COINCAP_TOKEN }}
         run: python scripts/fetch_coincap.py
 
-      - name: Commit and force push JSON
+      - name: Force overwrite local state with remote
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git fetch origin
+          git reset --hard origin/main
+
+      - name: Commit and push new CoinCap JSON
+        run: |
           git add data/
           git commit -m "📈 Daily CoinCap data for $(date +%F)" || echo "No changes to commit"
-          git push origin HEAD:data-dump --force
+          git push origin main --force
 
-
+      - name: Ingest CoinCap data to ClickHouse
+        env:
+          CH_HOST: ${{ secrets.CH_HOST }}
+          CH_PORT: ${{ secrets.CH_PORT }}
+          CH_USER: ${{ secrets.CH_USER }}
+          CH_PASSWORD: ${{ secrets.CH_PASSWORD }}
+          CH_DATABASE: ${{ secrets.CH_DATABASE }}
+        run: python scripts/ingest_to_clickhouse.py
