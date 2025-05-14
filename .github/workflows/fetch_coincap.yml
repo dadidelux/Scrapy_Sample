@@ -51,7 +51,7 @@ jobs:
         env:
           CH_HOST: ${{ secrets.CH_HOST }}
           CH_PORT: ${{ secrets.CH_PORT }}
-          CH_USER: ${{ secrets.CH_USERNAME }}
+          CH_USERNAME: ${{ secrets.CH_USERNAME }}
           CH_PASSWORD: ${{ secrets.CH_PASSWORD }}
-          CH_DATABASE: ${{ secrets.CH_DB }}
+          CH_DB: ${{ secrets.CH_DB }}
         run: python scripts/ingest_to_clickhouse.py
