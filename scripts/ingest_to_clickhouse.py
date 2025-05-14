@@ -6,9 +6,17 @@ from clickhouse_driver import Client
 # Load env vars from GitHub secrets
 host = os.getenv("CH_HOST")
 port = int(os.getenv("CH_PORT", "9000"))
-user = os.getenv("CH_USER")
+user = os.getenv("CH_USERNAME")
 password = os.getenv("CH_PASSWORD")
-database = os.getenv("CH_DATABASE")
+database = os.getenv("CH_DB")
+
+print("🔍 ClickHouse connection info:")
+print(f"  Host     : {host}")
+print(f"  Port     : {port}")
+print(f"  User     : {user}")
+print(f"  Database : {database}")
+print(f"  Password : {'(hidden)' if password else '(missing)'}")
+
 
 # Load today's JSON file
 today = datetime.datetime.utcnow().strftime("%Y-%m-%d")
