@@ -45,13 +45,13 @@ jobs:
           git push origin main --force
 
       - name: Test ClickHouse Connection
-        run: echo "Connecting to ${{ secrets.CH_HOST }}:${{ secrets.CH_PORT }} as ${{ secrets.CH_USER }}"
+        run: echo "Connecting to ${{ secrets.CH_HOST }}:${{ secrets.CH_PORT }} as ${{ secrets.CH_USERNAME }}"
 
       - name: Ingest CoinCap data to ClickHouse
         env:
           CH_HOST: ${{ secrets.CH_HOST }}
           CH_PORT: ${{ secrets.CH_PORT }}
-          CH_USER: ${{ secrets.CH_USER }}
+          CH_USER: ${{ secrets.CH_USERNAME }}
           CH_PASSWORD: ${{ secrets.CH_PASSWORD }}
-          CH_DATABASE: ${{ secrets.CH_DATABASE }}
+          CH_DATABASE: ${{ secrets.CH_DB }}
         run: python scripts/ingest_to_clickhouse.py
