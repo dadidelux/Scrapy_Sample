@@ -6,9 +6,9 @@ from clickhouse_driver import Client
 # Load env vars from GitHub secrets
 host = os.getenv("CH_HOST")
 port = 9000
-user = "user_3"
+user = os.getenv("CH_USERNAME")
 password = os.getenv("CH_PASSWORD")
-database = "analyst"
+database = os.getenv("CH_DB")
 
 print("🔍 ClickHouse connection info:")
 print(f"  Host     : {host}")
