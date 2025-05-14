@@ -44,6 +44,9 @@ jobs:
           git commit -m "📈 Daily CoinCap data for $(date +%F)" || echo "No changes to commit"
           git push origin main --force
 
+      - name: Test ClickHouse Connection
+        run: echo "Connecting to ${{ secrets.CH_HOST }}:${{ secrets.CH_PORT }} as ${{ secrets.CH_USER }}"
+
       - name: Ingest CoinCap data to ClickHouse
         env:
           CH_HOST: ${{ secrets.CH_HOST }}
