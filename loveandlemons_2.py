@@ -1,11 +1,11 @@
-import requests
+from curl_cffi import requests as curl_requests
 import json
 import html
 import time
 
 base_url = "https://sxyn6w.a.searchspring.io/api/search/search.json"
 headers = {
-    "User-Agent": "Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"
 }
 params = {
     "resultsFormat": "native",
@@ -22,7 +22,7 @@ max_pages = 20  # Adjust this as needed
 
 for page in range(1, max_pages + 1):
     params["page"] = page
-    res = requests.get(base_url, params=params, headers=headers)
+    res = curl_requests.get(base_url, params=params, headers=headers)
 
     if res.status_code != 200:
         print(f"❌ Page {page} failed.")
